@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thẻ sinh viên - Lê Xuân Trường</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-950:#0c1626;
+    --ink-900:#111d33;
+    --ink-800:#1b2c4a;
+    --gold:#c8a04d;
+    --gold-soft:#e4c987;
+    --paper:#faf8f3;
+    --paper-line:#e7e2d6;
+    --text-muted:#6b7280;
+    --text-body:#20283a;
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{
+    margin:0;
+    padding:0;
+    min-height:100vh;
+    font-family:'Inter',sans-serif;
+    background:
+      radial-gradient(circle at 15% 15%, rgba(200,160,77,0.10), transparent 45%),
+      radial-gradient(circle at 85% 85%, rgba(200,160,77,0.08), transparent 45%),
+      var(--ink-950);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:48px 20px;
+  }
+
+  .card{
+    position:relative;
+    width:100%;
+    max-width:460px;
+    background:var(--paper);
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.06) inset,
+      0 30px 60px -20px rgba(0,0,0,0.55),
+      0 0 0 1px rgba(200,160,77,0.18);
+  }
+
+  /* Header */
+  .card__header{
+    position:relative;
+    padding:46px 40px 34px;
+    background:
+      linear-gradient(160deg, var(--ink-900) 0%, var(--ink-950) 100%);
+    text-align:center;
+    color:#fff;
+    overflow:hidden;
+  }
+
+  .card__header::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      repeating-linear-gradient(115deg, rgba(200,160,77,0.05) 0px, rgba(200,160,77,0.05) 1px, transparent 1px, transparent 34px);
+    pointer-events:none;
+  }
+
+  .card__header::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:0;
+    transform:translateX(-50%);
+    width:70%;
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity:0.6;
+  }
+
+  .badge{
+    position:relative;
+    width:96px;
+    height:96px;
+    margin:0 auto 22px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+      radial-gradient(circle at 32% 28%, #fdf6e3, #f2e2ae 55%, var(--gold) 100%);
+    box-shadow:
+      0 0 0 1px rgba(200,160,77,0.55),
+      0 0 0 6px rgba(200,160,77,0.10),
+      0 12px 24px -8px rgba(0,0,0,0.5);
+  }
+
+  .badge span{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:30px;
+    letter-spacing:0.02em;
+    color:var(--ink-950);
+  }
+
+  .card__name{
+    margin:0;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:29px;
+    letter-spacing:0.005em;
+    line-height:1.2;
+  }
+
+  .card__role{
+    margin:10px 0 0;
+    font-size:14px;
+    color:var(--gold-soft);
+    letter-spacing:0.02em;
+  }
+
+  /* Body */
+  .card__body{
+    padding:32px 40px 8px;
+  }
+
+  .section-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:18px;
+    color:var(--ink-900);
+    margin:0 0 4px;
+  }
+
+  .section-sub{
+    font-size:12.5px;
+    color:var(--text-muted);
+    margin:0 0 20px;
+  }
+
+  .info-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:16px;
+    padding:15px 0;
+    border-bottom:1px solid var(--paper-line);
+  }
+
+  .info-row:last-child{
+    border-bottom:none;
+  }
+
+  .info-row .label{
+    font-size:13.5px;
+    color:var(--text-muted);
+    font-weight:500;
+    white-space:nowrap;
+  }
+
+  .info-row .value{
+    font-size:15px;
+    font-weight:600;
+    color:var(--text-body);
+    text-align:right;
+    font-variant-numeric:tabular-nums;
+  }
+
+  /* Footer */
+  .card__footer{
+    margin-top:14px;
+    padding:16px 40px 26px;
+    text-align:center;
+    background:linear-gradient(180deg, transparent, rgba(200,160,77,0.05));
+  }
+
+  .card__footer p{
+    margin:0;
+    font-size:12px;
+    letter-spacing:0.03em;
+    color:var(--text-muted);
+  }
+
+  .card__footer .course{
+    display:inline-block;
+    margin-top:8px;
+    padding:6px 14px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:600;
+    color:var(--ink-900);
+    background:rgba(200,160,77,0.16);
+    border:1px solid rgba(200,160,77,0.35);
+  }
+
+  @media (max-width:420px){
+    .card__header{padding:38px 26px 28px;}
+    .card__body{padding:26px 26px 6px;}
+    .card__footer{padding:14px 26px 22px;}
+    .card__name{font-size:24px;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="card__header">
+      <div class="badge"><span>LXT</span></div>
+      <h1 class="card__name">LÊ XUÂN TRƯỜNG</h1>
+      <p class="card__role">Sinh viên · Đại học Bách khoa Hà Nội</p>
+    </div>
+
+    <div class="card__body">
+      <h2 class="section-title">Thông tin sinh viên</h2>
+      <p class="section-sub">Hồ sơ định danh điện tử</p>
+
+      <div class="info-row">
+        <span class="label">Họ và tên</span>
+        <span class="value">Lê Xuân Trường</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Mã số sinh viên</span>
+        <span class="value">20235446</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Mã học phần</span>
+        <span class="value">IT4409</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Mã lớp</span>
+        <span class="value">172920</span>
+      </div>
+    </div>
+
+    <div class="card__footer">
+      <p>Bài tập 1 · Công nghệ Web và Dịch vụ trực tuyến</p>
+      <span class="course">Học kỳ 2025 – 2026</span>
+    </div>
+  </div>
+
+</body>
+</html>
