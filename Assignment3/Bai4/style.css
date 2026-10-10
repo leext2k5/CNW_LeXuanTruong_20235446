@@ -1,0 +1,634 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap");
+
+/* =========================================================
+   Blakletterpress — style.css
+   Mobile-first. Các mốc responsive:
+     30rem (480px)  menu 4 cột
+     40rem (640px)  thẻ giá trị / đội ngũ 3 cột, form 2 cột, footer 2 cột
+     60rem (960px)  header nằm ngang, nội dung + sidebar 2 cột, footer 4 cột
+   ========================================================= */
+
+/* ---------- 1. Biến dùng chung ---------- */
+:root {
+	--bg: #fed48d;
+	--paper: #fffaf0;
+	--card: #ffffff;
+	--ink: #3a2012;
+	--ink-soft: #6b4a32;
+	--brown: #794b19;
+	--brown-light: #916327;
+	--line: #c48d41;
+	--rule: #ead3a6;
+	--amber: #fec479;
+	--cream: #fff3dc;
+	--link: #8a4a0b;
+	--green: #23804a;
+	--green-dark: #17603a;
+	--footer-bg: #2a130b;
+
+	--font-body: "Be Vietnam Pro", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	--font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+
+	--radius: 8px;
+	--shadow: 0 1px 2px rgba(58, 32, 18, .12), 0 8px 24px rgba(58, 32, 18, .12);
+	/* Lề hai bên: tối thiểu 1.25rem, và giữ nội dung không rộng quá 70rem */
+	--gutter: max(1.25rem, calc((100% - 70rem) / 2));
+}
+
+/* ---------- 2. Reset & nền tảng ---------- */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+	/* Dịch ảnh nền lên 76px để bỏ 2 đường kẻ ngang cố định trong ảnh gốc */
+	background: var(--bg) url("images/bg-body.png") repeat-x 0 -76px;
+	color: var(--ink);
+	font-family: var(--font-body);
+	font-size: 1rem;
+	line-height: 1.65;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+h1,
+h2,
+h3 {
+	font-family: var(--font-display);
+	line-height: 1.2;
+	color: var(--ink);
+}
+
+a {
+	color: var(--link);
+	text-underline-offset: .18em;
+}
+
+a:hover {
+	color: var(--ink);
+}
+
+:focus-visible {
+	outline: 3px solid var(--ink);
+	outline-offset: 2px;
+}
+
+[id] {
+	scroll-margin-top: 1rem;
+}
+
+/* ---------- 3. Header ---------- */
+.site-header {
+	display: grid;
+	grid-template-areas:
+		"logo"
+		"name"
+		"tagline"
+		"nav";
+	justify-items: center;
+	padding: 1.25rem var(--gutter) 1rem;
+	border-bottom: 5px double var(--line);
+	text-align: center;
+}
+
+/* Logo là ảnh trang trí nên đặt bằng pseudo-element, không cần sửa HTML */
+.site-header::before {
+	content: "";
+	grid-area: logo;
+	width: 6.5rem;
+	aspect-ratio: 240 / 108;
+	background: url("images/logo.png") center / contain no-repeat;
+}
+
+.site-name {
+	grid-area: name;
+	font-family: var(--font-display);
+	font-size: clamp(1.75rem, 7vw, 2.25rem);
+	font-weight: 700;
+	line-height: 1.15;
+	color: var(--ink);
+	text-decoration: none;
+}
+
+.tagline {
+	grid-area: tagline;
+	margin: 0;
+	font-family: var(--font-display);
+	font-style: italic;
+	font-weight: 500;
+	color: var(--brown);
+}
+
+.main-nav {
+	grid-area: nav;
+	width: 100%;
+	margin-top: 1rem;
+}
+
+.main-nav ul {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	list-style: none;
+	background: linear-gradient(var(--brown), var(--brown-light));
+	border-radius: var(--radius);
+	box-shadow: 0 2px 6px rgba(58, 32, 18, .3);
+}
+
+/* Đường kẻ mảnh giữa các ô menu, đúng cho cả lưới 2×2 lẫn 1×4 */
+.main-nav li {
+	box-shadow: 0 0 0 1px rgba(255, 243, 220, .14);
+}
+
+.main-nav a {
+	display: block;
+	padding: .7rem 1rem;
+	color: var(--cream);
+	font-weight: 600;
+	text-align: center;
+	text-decoration: none;
+	white-space: nowrap;
+	transition: background-color .2s;
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+	background-color: rgba(255, 243, 220, .2);
+	color: #fff;
+}
+
+.main-nav a:focus-visible {
+	outline-color: var(--cream);
+	outline-offset: -4px;
+}
+
+/* ---------- 4. Bố cục chính ---------- */
+.layout {
+	display: grid;
+	gap: 1.5rem;
+	padding: 1.5rem var(--gutter) 0;
+}
+
+main,
+.sidebar {
+	min-width: 0;
+	background: var(--paper);
+	border: 1px solid var(--rule);
+	border-radius: var(--radius);
+	box-shadow: var(--shadow);
+}
+
+main {
+	padding: clamp(1.25rem, 5vw, 2.5rem);
+}
+
+/* Mỗi khối nội dung cách nhau bằng đường kẻ đôi kiểu ấn phẩm in */
+main > * + * {
+	margin-top: 2.5rem;
+	padding-top: 2.5rem;
+	border-top: 3px double var(--rule);
+}
+
+h1 {
+	margin: 0 0 1.25rem;
+	font-size: clamp(1.9rem, 6vw, 2.75rem);
+	letter-spacing: -.01em;
+}
+
+h2 {
+	margin: 0 0 1.25rem;
+	font-size: clamp(1.4rem, 4vw, 1.75rem);
+}
+
+main h2::after {
+	content: "";
+	display: block;
+	width: 3rem;
+	height: 3px;
+	margin-top: .5rem;
+	background: var(--line);
+}
+
+h3 {
+	font-size: 1.15rem;
+}
+
+/* ---------- 5. Bài giới thiệu ---------- */
+article p {
+	max-width: 65ch;
+	margin: 0 0 1rem;
+}
+
+article p:last-child {
+	margin-bottom: 0;
+}
+
+figure {
+	margin: 0 0 1.5rem;
+}
+
+figure img {
+	width: 100%;
+	aspect-ratio: 666 / 342;
+	object-fit: cover;
+	border: 6px solid var(--card);
+	border-radius: 4px;
+	box-shadow: 0 2px 10px rgba(58, 32, 18, .25);
+}
+
+figcaption {
+	margin-top: .6rem;
+	color: var(--ink-soft);
+	font-size: .9rem;
+	font-style: italic;
+	text-align: center;
+}
+
+/* ---------- 6. Giá trị cốt lõi ---------- */
+.value-list,
+.team-list {
+	display: grid;
+	gap: 1rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.value-card,
+.member {
+	display: grid;
+	column-gap: 1rem;
+	padding: 1.1rem;
+	background: var(--card);
+	border: 1px solid var(--rule);
+	border-radius: var(--radius);
+}
+
+.value-card {
+	grid-template-columns: 72px 1fr;
+	transition: transform .2s, box-shadow .2s;
+}
+
+/* Icon cắt từ sprite icons.png: mỗi icon 72×74, cột thứ hai (x = -91px) là trạng thái hover */
+.value-card::before {
+	content: "";
+	grid-row: span 2;
+	width: 72px;
+	height: 74px;
+	background: url("images/icons.png") no-repeat var(--icon-x, 0) var(--icon-y, -27px);
+}
+
+.value-card:nth-child(1) { --icon-y: -280px; } /* bút chì — Thủ công */
+.value-card:nth-child(2) { --icon-y: -196px; } /* địa cầu — Bền vững */
+.value-card:nth-child(3) { --icon-y: -112px; } /* chuông phục vụ — Cá nhân hoá */
+
+.value-card:hover {
+	--icon-x: -91px;
+	transform: translateY(-3px);
+	box-shadow: var(--shadow);
+}
+
+.value-card h3,
+.member h3 {
+	align-self: end;
+	margin: 0 0 .25rem;
+}
+
+.value-card p,
+.member p {
+	margin: 0;
+	color: var(--ink-soft);
+	font-size: .95rem;
+}
+
+/* ---------- 7. Đội ngũ ---------- */
+.member {
+	grid-template-columns: auto 1fr;
+	align-items: center;
+}
+
+/* Ảnh gốc nhỏ (78×48) nên trình bày như một tấm ảnh in dán lên thẻ */
+.member img {
+	grid-row: span 2;
+	width: 96px;
+	border: 4px solid var(--card);
+	box-shadow: 0 2px 6px rgba(58, 32, 18, .35);
+	transform: rotate(-2deg);
+}
+
+.member:nth-child(even) img {
+	transform: rotate(2deg);
+}
+
+.member p {
+	align-self: start;
+}
+
+/* ---------- 8. Form liên hệ ---------- */
+.contact-form {
+	display: grid;
+	gap: 1rem 1.25rem;
+}
+
+.contact-form p {
+	margin: 0;
+}
+
+/* <br> trong HTML chỉ để xuống dòng khi chưa có CSS; ở đây label đã là block */
+.contact-form br {
+	display: none;
+}
+
+.contact-form label {
+	display: block;
+	margin-bottom: .35rem;
+	font-weight: 600;
+}
+
+.contact-form label:has(+ br + :required)::after {
+	content: " *";
+	color: #b3261e;
+}
+
+.contact-form input,
+.contact-form textarea {
+	width: 100%;
+	padding: .65rem .8rem;
+	background: var(--card);
+	border: 1px solid var(--line);
+	border-radius: 6px;
+	color: inherit;
+	font: inherit;
+	transition: border-color .2s, box-shadow .2s;
+}
+
+.contact-form textarea {
+	min-height: 8rem;
+	resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+	outline: none;
+	border-color: var(--brown);
+	box-shadow: 0 0 0 3px rgba(196, 141, 65, .35);
+}
+
+.contact-form button {
+	width: 100%;
+	padding: .75rem 1.75rem;
+	background: linear-gradient(var(--green), var(--green-dark));
+	border: 1px solid var(--green-dark);
+	border-radius: 6px;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25), 0 2px 4px rgba(58, 32, 18, .25);
+	color: #fff;
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+	transition: filter .2s, transform .1s;
+}
+
+.contact-form button:hover {
+	filter: brightness(1.1);
+}
+
+.contact-form button:active {
+	transform: translateY(1px);
+}
+
+/* ---------- 9. Sidebar ---------- */
+.sidebar {
+	overflow: hidden;
+	padding: 0 1.25rem 1.25rem;
+}
+
+.sidebar h2 {
+	margin: 0 -1.25rem 0;
+	padding: .8rem 1.25rem;
+	background: linear-gradient(var(--brown), var(--brown-light));
+	color: var(--cream);
+	font-size: 1.15rem;
+}
+
+.recent {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.recent li {
+	border-bottom: 1px dashed var(--line);
+}
+
+.recent a {
+	display: flex;
+	gap: .5rem;
+	padding: .8rem 0;
+	font-weight: 500;
+	text-decoration: none;
+}
+
+.recent a::before {
+	content: "›";
+	color: var(--line);
+	font-weight: 600;
+	transition: transform .2s;
+}
+
+.recent a:hover {
+	text-decoration: underline;
+}
+
+.recent a:hover::before {
+	transform: translateX(3px);
+}
+
+.sidebar p {
+	margin: 1rem 0 0;
+	color: var(--ink-soft);
+	font-size: .95rem;
+}
+
+.sidebar a[href*="facebook"] {
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+/* Icon Facebook 19×19 lấy từ hàng đầu của sprite */
+.sidebar a[href*="facebook"]::before {
+	content: "";
+	display: inline-block;
+	width: 19px;
+	height: 19px;
+	margin-right: .35rem;
+	vertical-align: -4px;
+	background: url("images/icons.png") no-repeat -72px 0;
+}
+
+/* ---------- 10. Footer ---------- */
+.site-footer {
+	margin-top: 2.5rem;
+	padding: 2.5rem var(--gutter) 1.5rem;
+	background: var(--footer-bg);
+	border-top: 4px solid var(--line);
+	color: #ecd2ab;
+}
+
+.footer-cols {
+	display: grid;
+	gap: 1.5rem 2rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.footer-cols h3 {
+	margin: 0 0 .4rem;
+	color: var(--amber);
+	font-size: 1.05rem;
+}
+
+.footer-cols p {
+	margin: 0;
+	font-size: .95rem;
+	overflow-wrap: break-word;
+}
+
+.copyright {
+	margin: 2rem 0 0;
+	padding-top: 1.25rem;
+	border-top: 1px solid rgba(254, 196, 121, .2);
+	color: #c9ab82;
+	text-align: center;
+}
+
+/* ---------- 11. Responsive ---------- */
+@media (min-width: 30rem) {
+	.main-nav ul {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+@media (min-width: 40rem) {
+	.value-list,
+	.team-list {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	/* Thẻ chuyển từ dạng ngang (icon bên trái) sang dạng dọc, canh giữa */
+	.value-card,
+	.member {
+		grid-template-columns: 1fr;
+		justify-items: center;
+		align-content: start;
+		row-gap: .5rem;
+		padding: 1.5rem 1rem;
+		text-align: center;
+	}
+
+	.value-card::before,
+	.member img {
+		grid-row: auto;
+	}
+
+	.value-card h3,
+	.member h3 {
+		margin: 0;
+	}
+
+	.contact-form {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.contact-form p:nth-child(n + 3) {
+		grid-column: 1 / -1;
+	}
+
+	.contact-form button {
+		width: auto;
+	}
+
+	.footer-cols {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (min-width: 60rem) {
+	.site-header {
+		grid-template-columns: auto 1fr auto;
+		grid-template-areas:
+			"logo name    nav"
+			"logo tagline nav";
+		justify-items: start;
+		align-items: center;
+		column-gap: 1rem;
+		padding-block: 1.5rem;
+		text-align: left;
+	}
+
+	.site-name {
+		align-self: end;
+	}
+
+	.tagline {
+		align-self: start;
+	}
+
+	.main-nav {
+		width: auto;
+		margin-top: 0;
+	}
+
+	.main-nav ul {
+		grid-template-columns: repeat(4, auto);
+	}
+
+	.main-nav a {
+		padding-inline: 1.25rem;
+	}
+
+	.layout {
+		grid-template-columns: minmax(0, 1fr) 19rem;
+		align-items: start;
+		gap: 2rem;
+		padding-top: 2rem;
+	}
+
+	/* Sidebar bám theo khi cuộn trang */
+	.sidebar {
+		position: sticky;
+		top: 1rem;
+	}
+
+	/* min-content: cột không hẹp hơn từ dài nhất (địa chỉ email) nên email không bị ngắt giữa chừng */
+	.footer-cols {
+		grid-template-columns: repeat(4, minmax(min-content, 1fr));
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		transition: none !important;
+	}
+}
